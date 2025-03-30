@@ -35,6 +35,67 @@ function checkPassword() {
     window.location.href = 'index.html';
 }
 
+
+
+
+// 禁止右击
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
+// 禁止选中文本
+document.addEventListener('selectstart', function (e) {
+    e.preventDefault();
+});
+
+// 禁止复制
+document.addEventListener('copy', function (e) {
+    e.preventDefault();
+});
+
+// 禁止鼠标拖拽图片
+const images = document.getElementsByTagName('img');
+for (let i = 0; i < images.length; i++) {
+    images[i].addEventListener('dragstart', function (e) {
+        e.preventDefault();
+    });
+}
+
+// 禁止使用所有 F 键以及 Ctrl、Alt、Shift 单独或组合按键
+function preventKeyEvents(e) {
+    const keyCode = e.keyCode || e.which;
+    const isFKey = keyCode >= 112 && keyCode <= 123;
+    const isCtrl = e.ctrlKey;
+    const isAlt = e.altKey;
+    const isShift = e.shiftKey;
+
+    if (isFKey || isCtrl || isAlt || isShift) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+}
+
+document.addEventListener('keydown', preventKeyEvents);
+document.addEventListener('keypress', preventKeyEvents);
+document.addEventListener('keyup', preventKeyEvents);
+
+// 捕获阶段监听，提高优先级
+document.addEventListener('keydown', preventKeyEvents, true);
+document.addEventListener('keypress', preventKeyEvents, true);
+document.addEventListener('keyup', preventKeyEvents, true);    
+
+
+
+
+
+document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') {
+        tryToPreventScreenshot();
+    }
+});
+
+
 // 保留的DOMContentLoaded事件
 document.addEventListener('DOMContentLoaded', () => {
     const savedPassword = sessionStorage.getItem('saved_password');
@@ -53,8 +114,6 @@ if (currentPage === 'index.html' && firstVisit!== 'false') {
 
 // 处理客服按钮点击事件
 function openWhatsApp() {
-    // 替换为你的WhatsApp电话号码
-    const phoneNumber = 'your_phone_number'; 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
+    const whatsappUrl = 'https://wa.me/85257754148';
     window.open(whatsappUrl, '_blank');
 }
