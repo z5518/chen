@@ -114,6 +114,6 @@ if (currentPage === 'index.html' && firstVisit!== 'false') {
 
 // 处理客服按钮点击事件
 function openWhatsApp() {
-    const whatsappUrl = 'https://wa.me/85257754148';
+    const whatsappUrl = 'https://wa.me/85246938058';
     window.open(whatsappUrl, '_blank');
 }
